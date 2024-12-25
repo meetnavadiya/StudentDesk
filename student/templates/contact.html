@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Contact Us</h2>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <p class="lead text-center">We'd love to hear from you! If you have any questions or feedback, please fill out the form below and we'll get back to you as soon as possible.</p>
+
+            <!-- Contact Form -->
+            <form method="POST" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Optional: Display success or error message -->
+    {% if success %}
+    <div class="alert alert-success mt-4">
+        Thank you for your message! We'll get back to you soon.
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert alert-danger mt-4">
+        Something went wrong. Please try again later.
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

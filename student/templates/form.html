@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">
+        {% if student %}
+            Update Student
+        {% else %}
+            Create Student
+        {% endif %}
+    </h2>
+    
+    <form method="POST" action="">
+        {% csrf_token %}
+        
+        <!-- Name Field -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter full name" 
+                   value="{{ student.name }}">
+        </div>
+
+        <!-- Roll Number Field -->
+        <div class="mb-3">
+            <label for="rollno" class="form-label">Roll Number</label>
+            <input type="number" class="form-control" id="rollno" name="rollno" placeholder="Enter roll number"
+                   value="{{ student.roll }}">
+        </div>
+
+        <!-- Course Field -->
+        <div class="mb-3">
+            <label for="course" class="form-label">Course</label>
+            <input type="text" class="form-control" id="course" name="course" placeholder="Enter course"
+                   value="{{ student.course }}">
+        </div>
+
+        <!-- Address Field -->
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter your address">{{ student.address }}</textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">
+            {% if student %}
+                Update
+            {% else %}
+                Create
+            {% endif %}
+        </button>
+    </form>
+</div>
+
+{% endblock content %}
