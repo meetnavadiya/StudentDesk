@@ -56,8 +56,6 @@ def delete_stu(request, pk):
 
     return render(request, 'delete.html', {'student': stu})
 
-
-
 def about(request):
     return render(request, 'about.html')
 
