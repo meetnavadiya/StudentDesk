@@ -9,4 +9,8 @@ urlpatterns = [
     path('update/<int:pk>',views.update_student, name='update'),
     path('details/<int:pk>',views.details, name='details'),
     path('delete/<int:pk>',views.delete_stu, name='delete'),
+    path('singup/',views.singup, name='singup'),
+    path('login/',views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+
 ]

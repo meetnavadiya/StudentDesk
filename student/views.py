@@ -5,6 +5,8 @@ from django.conf import settings
 from django.contrib import messages
 from student.models import Student
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 def home(request):
@@ -85,3 +87,49 @@ def contact(request):
         return redirect('contact')
     
     return render(request, 'contact.html')
+
+def singup(request):
+    if request.method == 'POST':
+        un=request.POST.get('un')
+        email=request.POST.get('email')
+        pw1=request.POST.get('pw1')
+        pw2=request.POST.get('pw2')
+
+        if pw1 == pw2 :
+            if User.objects.filter(username=un):
+                context={'msg':'User already exists !!'}
+                return render(request,'singup.html',context)
+            else:
+                User.objects.create_user(
+                    username=un,
+                    email=email,
+                    password=pw1
+                )
+                return redirect('singup')
+        else:
+            context={'msg':'Password Does not match !!'}
+            return render(request,'singup.html',context)
+        
+    return render(request,'singup.html')
+            
+def login_view(request):
+    # if request.user.is_authenticated:
+    #     return redirect('home')
+    
+    if request.method =='POST':
+        un=request.POST.get('un')
+        pw=request.POST.get('pw')
+
+        user=authenticate(request,username=un,password=pw)
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+        
+        else:
+            return render(request,'login.html',{'msg':'Enter Valid Credentials!!'})
+        
+    return render(request,'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
